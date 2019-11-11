@@ -23,18 +23,21 @@ export default function Notifications() {
   // Component did mount
   useEffect(() => {
     async function loadNotifications() {
-      const response = await api.get(`notifications`);
+      try {
+        const response = await api.get(`notifications`);
 
-      const data = response.data.map(notification => ({
-        ...notification,
-        timeDistance: formatDistance(
-          parseISO(notification.createdAt),
-          new Date(),
-          { addSuffix: true },
-        ),
-      }));
+        const data = response.data.map(notification => ({
+          ...notification,
+          timeDistance: formatDistance(
+            parseISO(notification.createdAt),
+            new Date(),
+            { addSuffix: true },
+          ),
+        }));
 
-      setNotifications(data);
+        setNotifications(data);
+      } catch (e) {
+      }
     }
 
     loadNotifications();
