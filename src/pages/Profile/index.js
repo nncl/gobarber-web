@@ -5,6 +5,7 @@ import { updateRequest } from '~/store/modules/user/actions';
 
 import { Container } from './styles';
 import AvatarInput from './AvatarInput';
+import { signOut } from '~/store/modules/auth/actions';
 
 export default function Profile() {
   const profile = useSelector(state => state.user.profile);
@@ -12,6 +13,10 @@ export default function Profile() {
 
   function handleSubmit(data) {
     dispatch(updateRequest(data));
+  }
+
+  function handleSignOut() {
+    dispatch(signOut());
   }
 
   return (
@@ -39,7 +44,7 @@ export default function Profile() {
         <button type="submit">Update Profile</button>
       </Form>
 
-      <button type="button">Log out</button>
+      <button type="button" onClick={handleSignOut}>Log out</button>
     </Container>
   );
 }
