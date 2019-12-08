@@ -1,16 +1,28 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
+import { format, subDays, addDays } from 'date-fns';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import { Container, Time } from './styles';
 
 export default function Dashboard() {
+  const [date, setDate] = useState(new Date());
+  const formattedDate = useMemo(() => format(date, 'MMMM do'), [date]);
+
+  function handlePrevDay() {
+    setDate(subDays(date, 1));
+  }
+
+  function handleNextDay() {
+    setDate(addDays(date, 1));
+  }
+
   return (
     <Container>
       <header>
-        <button type="button">
+        <button type="button" onClick={handlePrevDay}>
           <MdChevronLeft size={36} color="#FFF" />
         </button>
-        <strong>May 31st</strong>
-        <button type="button">
+        <strong>{formattedDate}</strong>
+        <button type="button" onClick={handleNextDay}>
           <MdChevronRight size={36} color="#FFF" />
         </button>
       </header>
